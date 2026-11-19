@@ -124,6 +124,10 @@ APP_VERSION :=
 #	appear at /dev/video/usb when loaded. The default is "misc".
 DRIVER_PATH = 
 
+# Install development builds for the current user without conflicting with
+# applications managed by Haiku's package system.
+INSTALL_DIR = $(shell findpaths B_USER_NONPACKAGED_DIRECTORY)/apps
+
 ## Include the Makefile-Engine
 DEVEL_DIRECTORY := \
 	$(shell findpaths -r "makefile_engine" B_FIND_PATH_DEVELOP_DIRECTORY)
