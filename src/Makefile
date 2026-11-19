@@ -144,7 +144,8 @@ PACKAGE_FILE := $(abspath ..)/$(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_REVIS
 .PHONY: hpkg
 
 hpkg: $(TARGET)
-	@if [ -z "$(PACKAGE_ARCH)" ]; then \
+	@set -e; \
+	if [ -z "$(PACKAGE_ARCH)" ]; then \
 		echo "error: could not determine the Haiku package architecture" >&2; \
 		exit 1; \
 	fi; \
@@ -157,4 +158,5 @@ hpkg: $(TARGET)
 	install -m 755 "$(TARGET)" "$(PACKAGE_STAGE)/apps/$(NAME)"; \
 	sed 's/@ARCH@/$(PACKAGE_ARCH)/g' ../packaging/PackageInfo.in > "$(PACKAGE_STAGE)/.PackageInfo"; \
 	package create -C "$(PACKAGE_STAGE)" "$(PACKAGE_FILE)"; \
+	test -f "$(PACKAGE_FILE)"; \
 	echo "Created $(PACKAGE_FILE)"

@@ -35,7 +35,8 @@ install: all
 	echo "Installed $(APP_NAME) in $(INSTALL_DIRECTORY)"
 
 hpkg: all
-	@if [ -z "$(PACKAGE_ARCH)" ]; then \
+	@set -e; \
+	if [ -z "$(PACKAGE_ARCH)" ]; then \
 		echo "error: could not determine the Haiku package architecture" >&2; \
 		exit 1; \
 	fi; \
@@ -53,4 +54,5 @@ hpkg: all
 	install -m 755 "$$binary" "$(PACKAGE_STAGE)/apps/$(APP_NAME)"; \
 	sed 's/@ARCH@/$(PACKAGE_ARCH)/g' packaging/PackageInfo.in > "$(PACKAGE_STAGE)/.PackageInfo"; \
 	package create -C "$(PACKAGE_STAGE)" "$(PACKAGE_FILE)"; \
+	test -f "$(PACKAGE_FILE)"; \
 	echo "Created $(PACKAGE_FILE)"
