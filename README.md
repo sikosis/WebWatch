@@ -20,6 +20,30 @@ Please check out the [Swatch website](https://www.swatch.com/en/internet-time/ap
 Simply double-click the WebWatch icon to install WebWatch into the Deskbar.
 To get rid of it, right-click `WebWatch` in the Deskbar and select the `Quit` option from the pop-up menu.
 
+### Building and installing
+
+Build WebWatch on Haiku from the repository root:
+
+```sh
+make
+```
+
+Install the development build in the current user's non-packaged applications
+directory:
+
+```sh
+make install
+```
+
+Create an installable Haiku package in the repository root:
+
+```sh
+make hpkg
+```
+
+The package filename includes the WebWatch version, package revision, and the
+current Haiku architecture.
+
 ### Legal stuff
 
 This version of WebWatch is open source and may be distributed under the terms of the MIT license. Note that the author is in no way affiliated with Swatch, and fully respects their copyrights and trademarks.

@@ -1,0 +1,16 @@
+name webwatch
+version 1.5-1
+architecture @ARCH@
+summary "An Internet Time clock for the Deskbar"
+description "WebWatch displays Swatch Internet Time in the Haiku Deskbar."
+packager "WebWatch contributors"
+vendor "WebWatch contributors"
+licenses {
+	"MIT"
+}
+provides {
+	webwatch = 1.5
+}
+requires {
+	haiku
+}
