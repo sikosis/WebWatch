@@ -126,7 +126,7 @@ DRIVER_PATH =
 
 # Install development builds for the current user without conflicting with
 # applications managed by Haiku's package system.
-INSTALL_DIR = $(shell findpaths B_USER_CONFIG_DIRECTORY)/non-packaged/apps
+INSTALL_DIR = $(shell finddir B_USER_NONPACKAGED_DIRECTORY)/apps
 
 ## Include the Makefile-Engine
 DEVEL_DIRECTORY := \

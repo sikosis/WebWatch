@@ -9,7 +9,7 @@ BUILD_DIRECTORY := build
 PACKAGE_STAGE := $(BUILD_DIRECTORY)/package
 PACKAGE_ARCH ?= $(shell getarch)
 PACKAGE_FILE := $(CURDIR)/$(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_REVISION)-$(PACKAGE_ARCH).hpkg
-INSTALL_DIRECTORY ?= $(shell findpaths B_USER_CONFIG_DIRECTORY)/non-packaged/apps
+INSTALL_DIRECTORY ?= $(shell finddir B_USER_NONPACKAGED_DIRECTORY)/apps
 
 .PHONY: all clean install hpkg
 
@@ -21,7 +21,7 @@ clean:
 	rm -rf $(PACKAGE_STAGE)
 
 install: all
-	@if [ -z "$(INSTALL_DIRECTORY)" ] || [ "$(INSTALL_DIRECTORY)" = "/non-packaged/apps" ]; then \
+	@if [ -z "$(INSTALL_DIRECTORY)" ] || [ "$(INSTALL_DIRECTORY)" = "/apps" ]; then \
 		echo "error: could not determine the user non-packaged applications directory" >&2; \
 		exit 1; \
 	fi; \
