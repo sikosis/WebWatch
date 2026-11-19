@@ -132,3 +132,29 @@ INSTALL_DIR = $(shell finddir B_USER_NONPACKAGED_DIRECTORY)/apps
 DEVEL_DIRECTORY := \
 	$(shell findpaths -r "makefile_engine" B_FIND_PATH_DEVELOP_DIRECTORY)
 include $(DEVEL_DIRECTORY)/etc/makefile-engine
+
+
+PACKAGE_NAME := webwatch
+PACKAGE_VERSION := 1.5
+PACKAGE_REVISION := 1
+PACKAGE_ARCH := $(shell getarch)
+PACKAGE_STAGE := ../build/package
+PACKAGE_FILE := $(abspath ..)/$(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_REVISION)-$(PACKAGE_ARCH).hpkg
+
+.PHONY: hpkg
+
+hpkg: $(TARGET)
+	@if [ -z "$(PACKAGE_ARCH)" ]; then \
+		echo "error: could not determine the Haiku package architecture" >&2; \
+		exit 1; \
+	fi; \
+	command -v package >/dev/null 2>&1 || { \
+		echo "error: Haiku's package command was not found" >&2; \
+		exit 1; \
+	}; \
+	rm -rf "$(PACKAGE_STAGE)"; \
+	mkdir -p "$(PACKAGE_STAGE)/apps"; \
+	install -m 755 "$(TARGET)" "$(PACKAGE_STAGE)/apps/$(NAME)"; \
+	sed 's/@ARCH@/$(PACKAGE_ARCH)/g' ../packaging/PackageInfo.in > "$(PACKAGE_STAGE)/.PackageInfo"; \
+	package create -C "$(PACKAGE_STAGE)" "$(PACKAGE_FILE)"; \
+	echo "Created $(PACKAGE_FILE)"
